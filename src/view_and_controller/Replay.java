@@ -1,9 +1,14 @@
-public class replay {
+package view_and_controller;
+
+import model.Board;
+import model.Piece;
+
+public class Replay {
     int mCounter;
     String[] movement;
-    board b;
+    Board b;
 
-    replay(int mc, String[] m){
+    Replay(int mc, String[] m){
         mCounter = mc;
         movement = m;
     }
@@ -14,9 +19,9 @@ public class replay {
             System.out.println("Replay Ended Here.");
             return;
         }
-        b = new board();
-        piece[] p1 = b.getP1();
-        piece[] p2 = b.getP2();
+        b = new Board();
+        Piece[] p1 = b.getP1();
+        Piece[] p2 = b.getP2();
         int p1n = b.getP1n();
         int p2n = b.getP2n();
         String[] l1 = movement[0].split(" \\| ");
@@ -33,8 +38,8 @@ public class replay {
             String targetMove = split[4];
             String targetType = split[5];
 
-            piece piece = null;
-            piece eaten = null;
+            Piece piece = null;
+            Piece eaten = null;
 
             int ret = 0;
 
@@ -96,7 +101,7 @@ public class replay {
                 }
             }
 
-            int[] loc = {piece.getPositionX(), piece.getPositionY()};
+            int[] loc = {piece.getPositionR(), piece.getPositionC()};
             if(targetMove.equals("UP")){
                 ret = b.simpleMove(piece, loc[0] - 1, loc[1], "UP", targetType, eaten, loc[0], loc[1]);
             } else if (targetMove.equals("DOWN")) {
@@ -131,7 +136,7 @@ public class replay {
         System.out.printf("Replay Ended Here. Turn Used: %d Turns, Last Player: Player %d - %s.\n", turn, player, movement[mCounter - 1].split(" \\| ")[0]);
     }
 
-    public String getEatenString(piece o){
+    public String getEatenString(Piece o){
         if(o == null){
             return "Nothing";
         }

@@ -1,21 +1,31 @@
+package view_and_controller;
+
+//importing class from model package
+import model.Board;
+import model.Move;
+import model.Piece;
+import model.Player;
+
 import java.io.*;
 import java.util.Scanner;
 
-public class game implements Serializable {
-    board b;
-    player[] players = new player[2];
-    move[] moves = new move[1024];
-    int mCounter = 0;
+//writeObject is required for saving the file, as a result, serializable is implemented
+public class Game implements Serializable {
+    //declaring variable
+    Board b;
+    Player[] players = new Player[2];
+    Move[] moves = new Move[1024];  
+    int mCounter = 0;   //variable for current move# counter
     int back = 3;
     int current;
     boolean cont = true;
     int count = 1;
     transient Scanner s;
 
-    game(){
-        b = new board();
-        players[0] = new player("p-1", 1, b.getP1(), b.getP1n());
-        players[1] = new player("p-2", 2, b.getP2(), b.getP2n());
+    Game(){    //method for storing basic info for game
+        b = new Board();
+        players[0] = new Player("p-1", 1, b.getP1(), b.getP1n());
+        players[1] = new Player("p-2", 2, b.getP2(), b.getP2n());
         current = (int)(Math.random() * 2);
     }
 
@@ -34,22 +44,22 @@ public class game implements Serializable {
         }
 
 
-        while(cont){
-            player currentPlayer = players[current];
+        while(cont){ //round
+            Player currentPlayer = players[current];
             String pid = players[current].getID();
             int align = players[current].getAlign();
             int target;
             int p = -1;
             int[] sourceArray = new int[2];
             int[] targetArray = new int[2];
-            int ret = 0;
+            int ret = 0;                    //ret indicates whether the player eat other chess, ret =2 indicates eat, ret =1 indicates chess reaches the next
 
             boolean flag = true;
             boolean terminated = false;
 
-            do{
+            do{ 
                 target = select(currentPlayer, align, pid);
-                if(target == -16){
+                if(target == -16){ //target = positive will choose the chess
                     continue;
                 } else if (target == -8) {
                     break;
@@ -62,7 +72,8 @@ public class game implements Serializable {
                     if(p == -1){
                         break;
                     }
-                    int c = confirm(align, pid);
+                    //int c = confirm(align, pid);
+                    int c = 1;
                     if(c == 1){
                         flag = false;
                     }
@@ -73,29 +84,29 @@ public class game implements Serializable {
 
             if(p >= 0) {
 
-                piece source = b.getPiece(sourceArray[0], sourceArray[1]);
+                Piece source = b.getPiece(sourceArray[0], sourceArray[1]);
 
-                piece replaced = b.getPiece(targetArray[0], targetArray[1]);
+                Piece replaced = b.getPiece(targetArray[0], targetArray[1]);
 
-                ret = b.change(currentPlayer.getPiece(target).getPositionX(), currentPlayer.getPiece(target).getPositionY(), targetArray);
+                ret = b.change(currentPlayer.getPiece(target).getPositionR(), currentPlayer.getPiece(target).getPositionC(), targetArray);
                 if(ret == 2){
                     players[1 - current].removePiece(replaced);
                 }
 
                 if(p == 1){
-                    moves[mCounter] = new move(currentPlayer, align, source, replaced, "UP", "MOVE");
+                    moves[mCounter] = new Move(currentPlayer, align, source, replaced, "UP", "MOVE");
                 } else if (p == 2) {
-                    moves[mCounter] = new move(currentPlayer, align, source, replaced,"DOWN", "MOVE");
+                    moves[mCounter] = new Move(currentPlayer, align, source, replaced,"DOWN", "MOVE");
                 } else if (p == 3) {
-                    moves[mCounter] = new move(currentPlayer, align, source, replaced,"LEFT", "MOVE");
+                    moves[mCounter] = new Move(currentPlayer, align, source, replaced,"LEFT", "MOVE");
                 } else if (p == 4) {
-                    moves[mCounter] = new move(currentPlayer, align, source, replaced,"RIGHT", "MOVE");
+                    moves[mCounter] = new Move(currentPlayer, align, source, replaced,"RIGHT", "MOVE");
                 }
 
             }else{
                 int t1 = -1;
                 int valid = 0;
-                piece added = null;
+                Piece added = null;
                 for(int i = mCounter - 1; i >= 0; i--) {
                     if (moves[i].getType().equals("MOVE") && valid == 0) {
                         t1 = i;
@@ -106,7 +117,7 @@ public class game implements Serializable {
                         valid--;
                     }
                 }
-                piece source = moves[t1].getPiece();
+                Piece source = moves[t1].getPiece();
                 ret = b.revert(moves, mCounter, back, t1);
                 if(ret == 2){
                     int a1 = moves[t1].getEaten().getAlign();
@@ -114,7 +125,7 @@ public class game implements Serializable {
                     added = moves[t1].getEaten();
                 }
                 back--;
-                moves[mCounter] = new move(currentPlayer, align, source, added, moves[t1].flipMove(), "BACK");
+                moves[mCounter] = new Move(currentPlayer, align, source, added, moves[t1].flipMove(), "BACK");
             }
 
             mCounter++;
@@ -123,6 +134,7 @@ public class game implements Serializable {
 
             if(ret == 1 || players[1 - current].getPN() == 0){
                 cont = false;
+                b.showBoard();
                 while(true){
                     System.out.println("The Game Has Ended! Record This Game? [Y/N] or [1(for Y)/2(for N)]");
                     String receive = s.nextLine();
@@ -130,6 +142,7 @@ public class game implements Serializable {
                         int x = Integer.parseInt(receive);
                         if(x == 1){
                             record(align, pid);
+                            break;
                         }else if(x == 2){
                             break;
                         }else{
@@ -204,7 +217,7 @@ public class game implements Serializable {
 
     }
 
-    public int select(player currentPlayer, int align, String pid){
+    public int select(Player currentPlayer, int align, String pid){
         while(true){
             b.cleanSelectables();
             b.showBoard();
@@ -285,15 +298,16 @@ public class game implements Serializable {
         }
     }
 
-    public int possible(player currentPlayer, int align, String pid, int target, int[] targetArray, int[] sourceArray){
+    public int possible(Player currentPlayer, int align, String pid, int target, int[] targetArray, int[] sourceArray){
 
+        //return the possible movement of the piece
         while(true){
             System.out.println("=============================================================================================================================");
             System.out.printf("Turn %d (Player %d, %s): Possible Movement: (Space with \"[*]\")\n", count, align, pid);
             b.cleanSelectables();
-            int[][] sb = b.selectedBoard(currentPlayer.getPiece(target).getPositionX(), currentPlayer.getPiece(target).getPositionY(), currentPlayer.getPiece(target));
-            sourceArray[0] = currentPlayer.getPiece(target).getPositionX();
-            sourceArray[1] = currentPlayer.getPiece(target).getPositionY();
+            int[][] sb = b.selectedBoard(currentPlayer.getPiece(target).getPositionR(), currentPlayer.getPiece(target).getPositionC(), currentPlayer.getPiece(target));
+            sourceArray[0] = currentPlayer.getPiece(target).getPositionR();
+            sourceArray[1] = currentPlayer.getPiece(target).getPositionC();
             b.showBoard();
 
             System.out.printf("Turn %d (Player %d, %s): Accept Input: 1. UP(up) / 2. DOWN(down) / 3. (LEFT)left / 4. (RIGHT)right / 5. (RETURN) Return [To Previous]\n", count, align, pid);
@@ -480,7 +494,7 @@ public class game implements Serializable {
                     return -1;
                 }else{
                     System.out.printf("Turn %d (Player %d, %s): Input Doesn't Match. Try Again.\n", count, align, pid);
-                }
+                }//return the possible movement of the piece
             }
         }
     }

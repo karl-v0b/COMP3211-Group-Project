@@ -1,3 +1,5 @@
+package view_and_controller;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -46,7 +48,7 @@ public class Main {
     }
 
     public static void newGame(){
-        game g = new game();
+        Game g = new Game();
         g.namePlayer();
         String[] winner = g.process();
         if(winner[0].equals("none")){
@@ -83,7 +85,7 @@ public class Main {
                     counter++;
                 }
                 System.out.printf("File read successfully, %d lines read\n", counter);
-                replay replay = new replay(mCounter, movement);
+                Replay replay = new Replay(mCounter, movement);
                 replay.replaying();
             } catch (IOException e) {
                 System.out.println("Failed to read file: " + e.getMessage());
@@ -112,8 +114,8 @@ public class Main {
 
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
                 Object obj = ois.readObject();
-                if (obj instanceof game) {
-                    game g = (game) obj;
+                if (obj instanceof Game) {
+                    Game g = (Game) obj;
                     String[] winner = g.process();
                     if(winner[0].equals("none")){
                         System.out.println("No winner is determined at this point of the game.");

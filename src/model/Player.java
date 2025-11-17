@@ -1,12 +1,14 @@
+package model;
+
 import java.io.Serializable;
 
-public class player implements Serializable {
+public class Player implements Serializable {
     String id;
     int align;      //1: player-1, 2: player-2
-    piece[] pieces;
-    int pN;
+    Piece[] pieces;
+    int pN; //current effective number of pieces
 
-    player(String n, int p, piece[] ps, int psN){
+    public Player(String n, int p, Piece[] ps, int psN){
         id = n;
         align = p;
         pieces = ps;
@@ -21,9 +23,9 @@ public class player implements Serializable {
 
     public int getPN() {return pN;}
 
-    public piece[] getPieces() {return pieces;}
+    // public Piece[] getPieces() {return pieces;}
 
-    public piece getPiece(int i) {return pieces[i];}
+    public Piece getPiece(int i) {return pieces[i];}
 
     public void showPieces(){
         for(int i = 0; i < pN; i++){
@@ -42,19 +44,22 @@ public class player implements Serializable {
         return -1;
     }
 
-    public void removePiece(piece p) {
+    public void removePiece(Piece p) {
         int i = findPiece(p.getName().replaceAll("[^a-zA-Z]", ""));
-        for(int j = i; j < pN - 1; j++){
-            pieces[j] = pieces[j + 1];
+        if (i >= 0) {
+            for (int j = i; j < pN - 1; j++) {
+                pieces[j] = pieces[j + 1];
+            }
+            pN--;
         }
-        pN--;
     }
-    public boolean inRange(int i){return (i > 0 && i <= pN);}
 
-    public void addPiece(piece p, int r){
+    public boolean inRange(int i){return (i > 0 && i <= pN);}//check index out of range
+
+    public void addPiece(Piece p, int r){
         this.pN++;
         for(int i = pN - 1; i > r; i--){
-            pieces[i] = pieces[i--];
+            pieces[i] = pieces[i-1];
         }
         pieces[r] = p;
     }

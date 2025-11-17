@@ -1,14 +1,16 @@
+package model;
+
 import java.io.Serializable;
 
-public class move implements Serializable {
-    player player;
+public class Move implements Serializable {
+    Player player;
     int align;
-    piece piece;
-    piece eaten;
+    Piece piece;
+    Piece eaten;
     String move;
     String type;
 
-    move(player p1, int a, piece p2, piece e, String m, String t){
+    public Move(Player p1, int a, Piece p2, Piece e, String m, String t){
         player = p1;
         align = a;
         piece = p2;
@@ -25,7 +27,7 @@ public class move implements Serializable {
         return align;
     }
 
-    public piece getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
@@ -36,7 +38,7 @@ public class move implements Serializable {
         return this.piece.getName();
     }
 
-    public piece getEaten() {
+    public Piece getEaten() {
         return eaten;
     }
 
