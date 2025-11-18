@@ -29,7 +29,6 @@ public class Replay {
         int turn = 0;
 
         for(int i = 0; i < mCounter; i++){
-
             turn++;
 
             String[] split = movement[i].split(" \\| ");
@@ -40,7 +39,6 @@ public class Replay {
 
             Piece piece = null;
             Piece eaten = null;
-
             int ret = 0;
 
             if(player == 1){
@@ -102,6 +100,7 @@ public class Replay {
             }
 
             int[] loc = {piece.getPositionR(), piece.getPositionC()};
+            //move in different direction
             if(targetMove.equals("UP")){
                 ret = b.simpleMove(piece, loc[0] - 1, loc[1], "UP", targetType, eaten, loc[0], loc[1]);
             } else if (targetMove.equals("DOWN")) {
@@ -120,7 +119,7 @@ public class Replay {
                 System.out.printf("Player %s - %s (Turn %d): %s back to previous step (moving %s), %s is returning\n", player, split[0], turn, targetPiece, targetMove, getEatenString(eaten));
             }
             System.out.println("=============================================================================================================================");
-            if(ret == 1){
+            if(ret == 1){//if get into den
                 System.out.printf("Player %s - %s (Turn %d): reach the opponent den, and is the winner of this game. \n", player, split[0], turn);
                 break;
             }

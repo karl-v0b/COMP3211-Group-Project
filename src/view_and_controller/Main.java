@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        while(true){
+        while(true){//main menu
             System.out.println("=============================================================================================================================");
             System.out.println("The Jungle Game");
             System.out.println("Select (By Using \"Number\" or \"Word in []\") A Option From Below:");
@@ -18,14 +18,14 @@ public class Main {
             String str = s.nextLine();
             System.out.println("=============================================================================================================================");
             try {
-                int x = Integer.parseInt(str);
-                if(x == 1){
+                int input = Integer.parseInt(str);
+                if(input == 1){
                     newGame();
-                }else if(x == 2){
+                }else if(input == 2){
                     replayGame();
-                }else if (x == 3){
+                }else if (input == 3){
                     continueGame();
-                }else if(x == 4){
+                }else if(input == 4){
                     return;
                 }else{
                     System.out.println("Integer Out Of Range. Try Again.");
@@ -47,11 +47,11 @@ public class Main {
         }
     }
 
-    public static void newGame(){
+    public static void newGame(){//create new game
         Game g = new Game();
         g.namePlayer();
         String[] winner = g.process();
-        if(winner[0].equals("none")){
+        if(winner[0].equals("none")){//if game is terminated
             System.out.println("No winner is determined at this point of the game.");
         }else{
             System.out.printf("Winner is Player %s, %s!\n", winner[0], winner[1]);
@@ -59,7 +59,7 @@ public class Main {
         System.out.println("The Game Has Ended!");
     }
 
-    public static void replayGame(){
+    public static void replayGame(){//for replay the recorded game
         while(true){
             System.out.println("Input your record file name. (No File Extension)");
             System.out.println("Input ESCAPE To Leave \"Replay Game.\"");
@@ -93,7 +93,7 @@ public class Main {
         }
     }
 
-    public static void continueGame(){
+    public static void continueGame(){//continue previous game state
         while(true){
             System.out.println("Input your record file name. (No File Extension)");
             System.out.println("Input ESCAPE To Leave \"Continue / Load Game.\"");

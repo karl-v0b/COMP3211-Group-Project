@@ -248,7 +248,7 @@ public class Board implements Serializable {
         }
     }
 
-    public Piece getPiece(int x, int y){return boardMap[x][y].getPiece();}
+    public Piece getPiece(int r, int c){return boardMap[r][c].getPiece();}
 
     public Piece[] getP1() {return p1;}
 

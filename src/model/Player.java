@@ -34,7 +34,7 @@ public class Player implements Serializable {
         System.out.println(" ");
     }
 
-    public int findPiece(String s){
+    public int findPiece(String s){//if not piece, return -1
         s = s.toUpperCase();
         for(int i = 0; i < pN; i++){
             if(pieces[i].getName().replaceAll("[^a-zA-Z]", "").equals(s)){
