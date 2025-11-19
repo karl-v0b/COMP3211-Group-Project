@@ -165,14 +165,16 @@ public class Game implements Serializable {
     }
 
     public void namePlayer(){//name the player
-        System.out.println("=============================================================================================================================");
-        System.out.println("Select how to name your player: (By Using \"Number\" or \"Word in []\")");
-        System.out.println("1. Input Name [INPUT]");
-        System.out.println("2. Random Name [RANDOM]");
-        System.out.println("=============================================================================================================================");
-        Scanner s = new Scanner(System.in);
-        String str = s.nextLine();
-        System.out.println("=============================================================================================================================");
+        boolean retry = false;
+        do{
+            System.out.println("=============================================================================================================================");
+            System.out.println("Select how to name your player: (By Using \"Number\" or \"Word in []\")");
+            System.out.println("1. Input Name [INPUT]");
+            System.out.println("2. Random Name [RANDOM]");
+            System.out.println("=============================================================================================================================");
+            Scanner s = new Scanner(System.in);
+            String str = s.nextLine();
+            System.out.println("=============================================================================================================================");    
         try {
             int input = Integer.parseInt(str);
             if(input == 1){//input player name
@@ -182,13 +184,16 @@ public class Game implements Serializable {
                 System.out.println("Input Second(2nd) Player Name:");
                 String str3 = s.nextLine();
                 this.players[1].setID(str3);
+                retry = false;
             }else if(input == 2){//random name
                 String[][] temp = {{"Noah", "Oliver", "Arthur"},{"Olivia", "Amelia", "Lily"}};
                 int p = (int)(Math.random() * 2);
                 this.players[0].setID(temp[p][(int)(Math.random() * 3)]);
                 this.players[1].setID(temp[1 - p][(int)(Math.random() * 3)]);
+                retry=false;
             }else{
                 System.out.println("Integer Out Of Range. Try Again.");
+                retry=true;
             }
         } catch (NumberFormatException e) {//if enter text INPUT or RANDOM
             str = str.toUpperCase();
@@ -199,15 +204,19 @@ public class Game implements Serializable {
                 System.out.println("Input Second(2nd) Player Name:");
                 String str3 = s.nextLine();
                 this.players[0].setID(str3);
+                retry=false;
             }else if(str.equals("RANDOM")){
                 String[][] temp = {{"Noah", "Oliver", "Arthur"},{"Olivia", "Amelia", "Lily"}};
                 int p = (int)(Math.random() * 2);
                 this.players[0].setID(temp[p][(int)(Math.random() * 3)]);
                 this.players[1].setID(temp[1 - p][(int)(Math.random() * 3)]);
+                retry=false;
             }else{
                 System.out.println("Option Not Available. Try Again.");
+                retry= true;
             }
         }
+        }while(retry==true);
 
     }
 
