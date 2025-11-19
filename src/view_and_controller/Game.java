@@ -494,7 +494,7 @@ public class Game implements Serializable {
     public int record(int align, String pid){//record confirm
         while(true){
             System.out.printf("Turn %d (Player %d, %s): Record all the moves made by both player into a file.\n", turn_count, align, pid);
-            System.out.printf("Turn %d (Player %d, %s): Input your record file name. (No File Extension)\n", turn_count, align, pid);
+            System.out.printf("Turn %d (Player %d, %s): Input your record file name. (Avoid Using The Name \"ESCAPE\") (No File Extension)\n", turn_count, align, pid);
             String str4 = s.nextLine();
             System.out.println("=============================================================================================================================");
             System.out.printf("Turn %d (Player %d, %s): Confirm [1.Y / 2.N] [3. Exit]\n", turn_count, align, pid);
@@ -563,7 +563,7 @@ public class Game implements Serializable {
     public int save(int align, String pid){//save confirm
         while(true){
             System.out.printf("Turn %d (Player %d, %s): Save the current state of the game into a file.\n", turn_count, align, pid);
-            System.out.printf("Turn %d (Player %d, %s): Input your save file name. (No File Extension)\n", turn_count, align, pid);
+            System.out.printf("Turn %d (Player %d, %s): Input your save file name. (Avoid Using The Name \"ESCAPE\") (No File Extension)\n", turn_count, align, pid);
             String str4 = s.nextLine();
             System.out.println("=============================================================================================================================");
             System.out.printf("Turn %d (Player %d, %s): Confirm [1.Y / 2.N] [3. Exit]\n", turn_count, align, pid);
