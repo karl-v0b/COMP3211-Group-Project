@@ -56,8 +56,8 @@ Notice: There shouldn't be anything not related (including space) in between a w
                             <li>If you select RECORD or SAVE (Part 2): You may have to confirm you choice first, then need to input the file name without extension (avoid using the word "ESCAPE")</li>
                         </ol>
                     <li>Some of the option may include confirm page, input 1 or y to accept / 2 or n for deny(return to previous state of confirm)</li>
+                    <li>Notice: Only Make A Move and Take Step Back count a round, Other option may return to select option prompt or end the game (for end option).</li>
                 </ol>
-            <li>Notice: Only Make A Move and Take Step Back count a round, Other option may return to select option prompt or end the game (for end option).</li>
             <li>Ending Prompt</li>
                 <ol>
                     <li>a player info of winner will displayed after that player reach their opponent's den</li>
@@ -65,8 +65,8 @@ Notice: There shouldn't be anything not related (including space) in between a w
                 </ol>
         </ol>
         <li>In Third Option,</li>
-            <li>It will output no match if the file empty or carry nothing, then end the whole replay function.</li>
             <ol>
+            <li>It will output no match if the file empty or carry nothing, then end the whole replay function.</li>
                 <li>Replay in process: </li>
                     <ol>
                         <li>It will display the N-th Board of the recorded game, where N = round of a game match.</li>
