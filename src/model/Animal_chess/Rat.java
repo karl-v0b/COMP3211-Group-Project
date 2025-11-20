@@ -1,6 +1,5 @@
 package model.Animal_chess;
 
-import model.Piece;
 import model.Square;
 
 public class Rat extends Piece{

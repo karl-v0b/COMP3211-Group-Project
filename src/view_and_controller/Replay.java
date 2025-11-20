@@ -1,7 +1,7 @@
 package view_and_controller;
 
 import model.Board;
-import model.Piece;
+import model.Animal_chess.Piece;
 
 public class Replay {
     int mCounter;

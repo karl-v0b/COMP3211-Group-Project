@@ -1,7 +1,5 @@
 package model.Animal_chess;
 
-import model.Piece;
-
 public class Elephant extends Piece{
     public Elephant(int p){super("ELEPHANT", p);}   //indicates the player#
 

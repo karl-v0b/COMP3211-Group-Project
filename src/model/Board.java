@@ -7,6 +7,7 @@ import model.Animal_chess.Dog;
 import model.Animal_chess.Elephant;
 import model.Animal_chess.Leopard;
 import model.Animal_chess.Lion;
+import model.Animal_chess.Piece;
 import model.Animal_chess.Rat;
 import model.Animal_chess.Tiger;
 import model.Animal_chess.Wolf;

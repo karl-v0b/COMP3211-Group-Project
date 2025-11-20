@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import model.Animal_chess.Piece;
+
 public class Player implements Serializable {
     String id;
     int align;      //1: player-1, 2: player-2

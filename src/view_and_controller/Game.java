@@ -3,8 +3,8 @@ package view_and_controller;
 //importing class from model package
 import model.Board;
 import model.Move;
-import model.Piece;
 import model.Player;
+import model.Animal_chess.Piece;
 
 import java.io.*;
 import java.util.Scanner;
@@ -598,7 +598,7 @@ public class Game implements Serializable {
             } catch (NumberFormatException e) {
                 if(str3.equals("Y")){
                     System.out.printf("Turn %d (Player %d, %s): Data Saving\n", turn_count, align, pid);
-                    recordFile(str4, align, pid);
+                    saveFile(str4, align, pid);
                     return 1;
                 }else if(str3.equals("N")){
                     System.out.printf("Turn %d (Player %d, %s): Return to Name Inputting.\n", turn_count, align, pid);

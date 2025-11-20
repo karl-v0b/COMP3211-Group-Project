@@ -1,6 +1,9 @@
-package model;
+package model.Animal_chess;
 
 import java.io.Serializable;
+
+import model.Animals;
+import model.Square;
 
 public class Piece implements Serializable {
 
